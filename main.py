@@ -1,0 +1,97 @@
+import streamlit as st
+import requests
+
+st.set_page_config(
+    page_title="SuperMarket Express",
+    page_icon="🛒",
+    layout="centered"
+)
+
+API_KEY = "TU_API_KEY"
+API_URL = "https://api.deepseek.com/v1/chat/completions"
+
+
+def enviar_mensaje(mensaje):
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "model": "deepseek-chat",
+        "messages": [
+            {
+                "role": "system",
+                "content": "Eres el asistente virtual de SuperMarket Express. Ayuda a los clientes con productos, precios, promociones y domicilios."
+            },
+            {
+                "role": "user",
+                "content": mensaje
+            }
+        ]
+    }
+
+    try:
+        respuesta = requests.post(
+            API_URL,
+            headers=headers,
+            json=data,
+            timeout=30
+        )
+
+        if respuesta.status_code != 200:
+            return "❌ Ocurrió un error al conectar con el chatbot."
+
+        return respuesta.json()["choices"][0]["message"]["content"]
+
+    except requests.exceptions.Timeout:
+        return "⏰ El servidor tardó demasiado. Intenta nuevamente."
+
+    except requests.exceptions.RequestException:
+        return "🔌 No se pudo conectar con el servidor."
+
+
+def main():
+
+    st.title("🛒 SuperMarket Express")
+    st.subheader("🤖 Asistente virtual")
+
+    st.write(
+        "Hola 👋 Soy el asistente de SuperMarket Express. "
+        "Puedo ayudarte con productos, precios, promociones y domicilios."
+    )
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    mensaje = st.chat_input("Escribe tu pregunta...")
+
+    if mensaje:
+
+        st.session_state.messages.append({
+            "role": "user",
+            "content": mensaje
+        })
+
+        with st.chat_message("user"):
+            st.markdown(mensaje)
+
+        with st.chat_message("assistant"):
+
+            with st.spinner("Pensando..."):
+                respuesta = enviar_mensaje(mensaje)
+
+            st.markdown(respuesta)
+
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": respuesta
+        })
+
+
+if __name__ == "__main__":
+    main()
