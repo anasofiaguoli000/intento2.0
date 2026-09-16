@@ -48,7 +48,7 @@ def enviar_mensaje(mensaje):
         return "⏰ El servidor tardó demasiado. Intenta nuevamente."
 
     except requests.exceptions.RequestException:
-        return "🔌No se pudo conetar con el servidor."
+        return "🔌 No se pudo conectar con el servidor."
 
 
 def main():
@@ -58,7 +58,7 @@ def main():
 
     st.write(
         "Hola 👋 Soy el asistente de SuperMarket Express. "
-        "Puedo ayudarte con productos, precios, promociones,domicilios y más."
+        "Puedo ayudarte con productos, precios, promociones y domicilios."
     )
 
     if "messages" not in st.session_state:
