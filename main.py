@@ -39,8 +39,8 @@ def enviar_mensaje(mensaje):
             timeout=30
         )
 
-        if respuesta.status_code != 404:
-            return "conectar con el chatbot."
+        if respuesta.status_code != 200:
+            return "❌ Ocurrió un error al conectar con el chatbot."
 
         return respuesta.json()["choices"][0]["message"]["content"]
 
@@ -48,7 +48,7 @@ def enviar_mensaje(mensaje):
         return "⏰ El servidor tardó demasiado. Intenta nuevamente."
 
     except requests.exceptions.RequestException:
-        return "🔌conector correcto."
+        return "🔌No se pudo conetar con el servidor."
 
 
 def main():
@@ -58,7 +58,7 @@ def main():
 
     st.write(
         "Hola 👋 Soy el asistente de SuperMarket Express. "
-        "Puedo ayudarte con productos, precios, promociones y domicilios."
+        "Puedo ayudarte con productos, precios, promociones,domicilios y más."
     )
 
     if "messages" not in st.session_state:
