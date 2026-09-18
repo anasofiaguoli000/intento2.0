@@ -110,21 +110,7 @@ def main():
             display: inline-block;
         }
 
-        .boton:hover {
-            background-color: #246b45;
-        }
-    </style>
-</head>
 
-<body>
-
-    <a href="https://intento20-trlaontnnre6jxcbz2kigy.streamlit.app/" 
-       class="boton" target="_blank">
-        Abrir Chatbot 🤖
-    </a>
-
-</body>
-</html>
 
 
 if __name__ == "__main__":
