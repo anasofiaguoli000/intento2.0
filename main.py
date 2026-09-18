@@ -92,6 +92,40 @@ def main():
             "content": respuesta
         })
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Botón</title>
+
+    <style>
+        .boton {
+            background-color: #2e8b57;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+        }
+
+        .boton:hover {
+            background-color: #246b45;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="https://intento20-trlaontnnre6jxcbz2kigy.streamlit.app/" 
+       class="boton" target="_blank">
+        Abrir Chatbot 🤖
+    </a>
+
+</body>
+</html>
+
 
 if __name__ == "__main__":
     main()
